@@ -1,1 +1,67 @@
-Hello World!!!
+<div class="container mt-5">
+  <div class="row">
+    <div class="col">
+      <h1>Classrooms List</h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Capacity</th>
+            <th scope="col">Has projector</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of classrooms; track item.number) {
+          <tr>
+            <th scope="row">{{ item.number }}</th>
+            <td>{{ item.capacity }}</td>
+            <td>{{ item.hasProjector }}</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    <div class="col">
+      <h1>Courses List</h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of courses; track item.id) {
+          <tr>
+            <th scope="row">{{ item.id }}</th>
+            <td>{{ item.name }}</td>
+            <td>{{ item.type }}</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    <div class="col">
+      <h1>Professors List</h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Department</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of professors; track item.id) {
+          <tr>
+            <th scope="row">{{ item.id }}</th>
+            <td>{{ item.name }}</td>
+            <td>{{ item.department }}</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
