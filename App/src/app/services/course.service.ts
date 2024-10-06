@@ -13,6 +13,9 @@ export class CourseService implements DataService<Course> {
     return this.data.find(course => course.id === id);
   }
 
+  // task: Створіть функцію getMostPopularCourseType(): CourseType, 
+  // яка визначає найпопулярніший тип занять. 
+
   add(course: Course): void {
     this.data.push(course);
   }

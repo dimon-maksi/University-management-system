@@ -13,6 +13,9 @@ export class ClassroomService implements DataService<Classroom> {
     return this.data.find(classroom => classroom.number === number);
   }
 
+  // task: Реалізуйте функцію findAvailableClassrooms(timeSlot: TimeSlot, dayOfWeek: DayOfWeek): string[], 
+  // яка повертає номери вільних аудиторій у вказаний час
+
   add(classroom: Classroom): void {
     this.data.push(classroom);
   }
@@ -23,6 +26,9 @@ export class ClassroomService implements DataService<Classroom> {
       this.data[index] = updatedClassroom;
     }
   }
+
+  // task: Напишіть функцію reassignClassroom(lessonId: number, newClassroomNumber: string): boolean,
+  // яка змінює аудиторію для заняття, якщо це можливо.  
 
   delete(number: string): void {
     this.data = this.data.filter(classroom => classroom.number !== number);

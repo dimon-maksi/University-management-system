@@ -13,6 +13,7 @@ export class ProfessorService implements DataService<Professor> {
     return this.data.find(professor => professor.id === id);
   }
 
+  // task: Напишіть функцію addProfessor(professor: Professor): void
   add(professor: Professor): void {
     this.data.push(professor);
   }
