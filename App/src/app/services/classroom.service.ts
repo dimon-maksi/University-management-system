@@ -46,7 +46,22 @@ export class ClassroomService implements DataService<Classroom> {
   }
 
   // task: Напишіть функцію reassignClassroom(lessonId: number, newClassroomNumber: string): boolean,
-  // яка змінює аудиторію для заняття, якщо це можливо.  
+  // яка змінює аудиторію для заняття, якщо це можливо.
+  reassignClassroom(lessonId: number, newClassroomNumber: string): boolean {
+    const lessonService = new LessonService();
+    const lesson = lessonService.getById(lessonId)
+
+    if (lesson === undefined) return false;
+    const availableClassrooms = this.findAvailableClassrooms(lesson.timeSlot, lesson.dayOfWeek);
+
+    const result = availableClassrooms.indexOf(newClassroomNumber);
+
+    if (result != -1) {
+      lessonService.update(lessonId, lesson)
+      return true;
+    }
+    return false;
+  }
 
   delete(number: string): void {
     this.data = this.data.filter(classroom => classroom.number !== number);
