@@ -1,6 +1,9 @@
+import { Expansion } from '@angular/compiler';
 import { classrooms } from '../data/initial-data';
 import { DataService } from '../interfaces/data-service.interface';
+import { DayOfWeek, TimeSlot } from '../models/basic-types';
 import { Classroom } from '../models/classroom';
+import { LessonService } from './lesson.service';
 
 export class ClassroomService implements DataService<Classroom> {
   private data: Classroom[] = classrooms;
@@ -15,6 +18,21 @@ export class ClassroomService implements DataService<Classroom> {
 
   // task: Реалізуйте функцію findAvailableClassrooms(timeSlot: TimeSlot, dayOfWeek: DayOfWeek): string[], 
   // яка повертає номери вільних аудиторій у вказаний час
+  findAvailableClassrooms(timeSlot: TimeSlot, dayOfWeek: DayOfWeek): string[] {
+    const availableClassrooms: string[] = [];
+    const lessonService = new LessonService();
+    const lessons = lessonService.getAll();
+
+    const activeLessons = lessons
+      .filter(l => l.dayOfWeek === dayOfWeek)
+      .filter(l => l.timeSlot === timeSlot);
+
+    activeLessons.forEach(element => {
+      availableClassrooms.push(element.classroomNumber);
+    });
+
+    return availableClassrooms;
+  }
 
   add(classroom: Classroom): void {
     this.data.push(classroom);
