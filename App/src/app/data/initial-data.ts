@@ -43,7 +43,7 @@ export const courses: Course[] = [
 ];
 
 export const schedule: Lesson[] = [
-  { courseId: 1, professorId: 1, classroomNumber: '101', dayOfWeek: 'Monday', timeSlot: '8:30-10:00' },
-  { courseId: 2, professorId: 2, classroomNumber: '102', dayOfWeek: 'Tuesday', timeSlot: '10:15-11:45' },
-  { courseId: 3, professorId: 3, classroomNumber: '103', dayOfWeek: 'Wednesday', timeSlot: '12:15-13:45' }
+    { id: 1, courseId: 1, professorId: 1, classroomNumber: '101', dayOfWeek: 'Monday', timeSlot: '8:30-10:00' },
+    { id: 2, courseId: 2, professorId: 2, classroomNumber: '102', dayOfWeek: 'Tuesday', timeSlot: '10:15-11:45' },
+    { id: 3, courseId: 3, professorId: 3, classroomNumber: '103', dayOfWeek: 'Wednesday', timeSlot: '12:15-13:45' }
 ];
