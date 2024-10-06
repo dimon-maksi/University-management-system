@@ -1,5 +1,7 @@
+import { courseDto } from '../data/courseDto';
 import { courses } from '../data/initial-data';
 import { DataService } from '../interfaces/data-service.interface';
+import { CourseType } from '../models/basic-types';
 import { Course } from '../models/course';
 
 export class CourseService implements DataService<Course> {
@@ -15,6 +17,28 @@ export class CourseService implements DataService<Course> {
 
   // task: Створіть функцію getMostPopularCourseType(): CourseType, 
   // яка визначає найпопулярніший тип занять. 
+  getMostPopularCourseType(): CourseType {
+    let mostPopularCourseType: courseDto;
+
+    mostPopularCourseType = this.getNumberOfCourseType('Lecture');
+    mostPopularCourseType = this.getNumberOfCourseType('Seminar').count > mostPopularCourseType.count
+      ? this.getNumberOfCourseType('Seminar') : mostPopularCourseType;
+    mostPopularCourseType = this.getNumberOfCourseType('Lab').count > mostPopularCourseType.count
+      ? this.getNumberOfCourseType('Lab') : mostPopularCourseType;
+    mostPopularCourseType = this.getNumberOfCourseType('Practice').count > mostPopularCourseType.count
+      ? this.getNumberOfCourseType('Practice') : mostPopularCourseType;
+
+    return mostPopularCourseType.name;
+  }
+
+  getNumberOfCourseType(courseType: CourseType): courseDto {
+    const course: courseDto = {
+      name: courseType,
+      count: this.data.filter(c => c.type === courseType).length
+    }
+
+    return course;
+  }
 
   add(course: Course): void {
     this.data.push(course);
