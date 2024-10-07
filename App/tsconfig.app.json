@@ -2,9 +2,12 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "./out-tsc/app",
-    "types": []
-  },
+  "outDir": "../../out-tsc/spec",
+  "types": [
+    "jest",
+    "node"
+  ]
+},
   "files": [
     "src/main.ts"
   ],
