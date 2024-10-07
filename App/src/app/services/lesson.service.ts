@@ -16,9 +16,18 @@ export class LessonService implements DataService<Lesson> {
 
   // task: Напишіть функцію getProfessorSchedule(professorId: number): Lesson[],
   // яка повертає розклад конкретного професора
+  getProfessorSchedule(professorId: number): Lesson[] {
+    if (professorId < 0) throw new Error("Id is out of range")
+    return this.data.filter(p => p.professorId === professorId);
+  }
 
   // task: Реалізуйте функцію getClassroomUtilization(classroomNumber: string): number,
   // яка повертає відсоток використання аудиторії.  
+  getClassroomUtilization(classroomNumber: string): number {
+    const countPerWeek = this.data.filter(p => p.classroomNumber === classroomNumber).length;
+    const lessonsPerWeek = 7 * 6;
+    return countPerWeek / lessonsPerWeek;
+  }
 
   // task: Створіть функцію addLesson(lesson: Lesson): boolean,
   // яка додає заняття до розкладу, якщо немає конфліктів
