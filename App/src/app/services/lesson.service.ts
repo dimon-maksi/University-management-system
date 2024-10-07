@@ -1,5 +1,6 @@
 import { schedule } from '../data/initial-data';
 import { DataService } from '../interfaces/data-service.interface';
+import { ScheduleConflict } from '../models/basic-types';
 import { Lesson } from '../models/lesson';
 
 export class LessonService implements DataService<Lesson> {
@@ -21,9 +22,16 @@ export class LessonService implements DataService<Lesson> {
 
   // task: Створіть функцію addLesson(lesson: Lesson): boolean,
   // яка додає заняття до розкладу, якщо немає конфліктів
-  add(lesson: Lesson): void {
+  add(lesson: Lesson): boolean {
     // Додати перевірку чи створює конфлікти
-    this.data.push(lesson);
+    const result = this.validateLesson(lesson);
+    if (result === null) {
+      this.data.push(lesson);
+      return true;
+    }
+    if (result === 'ClassroomConflict') throw new Error("Classroom conflict");
+    if (result === 'ProfessorConflict') throw new Error("Professor conflict");
+    return false;
   }
 
   update(id: number, updatedLesson: Lesson): void {
@@ -41,4 +49,27 @@ export class LessonService implements DataService<Lesson> {
   // task: a) Створіть type alias ScheduleConflict з полями: type ("ProfessorConflict" | "ClassroomConflict"), lessonDetails: Lesson.  
   // b) Напишіть функцію validateLesson(lesson: Lesson): ScheduleConflict | null,
   // яка перевіряє, чи не створює нове заняття конфліктів у розкладі.
+  validateLesson(lesson: Lesson): ScheduleConflict | null {
+    if (this.validateProfessor(lesson.professorId, lesson.dayOfWeek, lesson.timeSlot) !== null) return "ProfessorConflict";
+    if (this.validateClassroom(lesson.classroomNumber, lesson.dayOfWeek, lesson.timeSlot) !== null) return "ClassroomConflict";
+    return null;
+  }
+
+  validateProfessor(professorId: number, dayOfWeek: string, timeSlot: string): "ProfessorConflict" | null {
+    const lessonsInDay = this.data
+      .filter(p => p.dayOfWeek === dayOfWeek)
+      .filter(p => p.timeSlot === timeSlot)
+      .filter(p => p.professorId === professorId)
+
+    return lessonsInDay.length === 0 ? null : "ProfessorConflict";
+  }
+
+  validateClassroom(classroomNumber: string, dayOfWeek: string, timeSlot: string): "ClassroomConflict" | null {
+    const lessonsInDay = this.data
+      .filter(p => p.dayOfWeek === dayOfWeek)
+      .filter(p => p.timeSlot === timeSlot)
+      .filter(p => p.classroomNumber === classroomNumber)
+
+    return lessonsInDay.length === 0 ? null : "ClassroomConflict";
+  }
 }
