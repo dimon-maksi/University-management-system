@@ -91,4 +91,52 @@ describe('LessonService', () => {
     const result = lessonService.validateClassroom('102', 'Friday', '10:15-11:45');
     expect(result).toBeNull();
   });
+
+  it('should return the correct schedule for a given professor', () => {
+    const professorId = 1;
+    const result: Lesson[] = lessonService.getProfessorSchedule(professorId);
+
+    expect(result).toBeDefined();
+    expect(result.length).toBeGreaterThan(0);
+    result.forEach(lesson => {
+      expect(lesson.professorId).toBe(professorId);
+    });
+  });
+
+  it('should return an empty array if the professor has no lessons', () => {
+    const professorId = 999;
+    const result: Lesson[] = lessonService.getProfessorSchedule(professorId);
+
+    expect(result).toEqual([]);
+  });
+
+  it('should throw an error for negative professor ID', () => {
+    const professorId = -1;
+
+    expect(() => lessonService.getProfessorSchedule(professorId)).toThrow("Id is out of range");
+  });
+
+  it('should return the correct utilization for a classroom with lessons', () => {
+    const classroomNumber = '101'; // Assuming classroom '101' has lessons
+    const result: number = lessonService.getClassroomUtilization(classroomNumber);
+
+    expect(result).toBeGreaterThan(0); // Should be greater than 0
+    expect(result).toBeLessThanOrEqual(1); // Utilization should be a percentage value (less than or equal to 1)
+  });
+
+  it('should return 0 utilization for an unused classroom', () => {
+    const classroomNumber = '999'; // Assuming classroom '999' does not exist or is unused
+    const result: number = lessonService.getClassroomUtilization(classroomNumber);
+
+    expect(result).toBe(0); // No utilization for an unused classroom
+  });
+
+  it('should return 0 utilization if no lessons exist', () => {
+    // Temporarily remove all lessons
+    lessonService['data'] = []; // Set schedule to empty
+    const classroomNumber = '101';
+    const result: number = lessonService.getClassroomUtilization(classroomNumber);
+
+    expect(result).toBe(0); // No lessons, so no utilization
+  });
 });
