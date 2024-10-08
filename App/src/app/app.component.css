@@ -1,0 +1,22 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* 100% висоти вікна браузера */
+}
+
+.content-container {
+  flex: 1; /* Компонент <app-home> займає весь залишковий простір між навігацією та футером */
+  overflow: auto; /* Дозволяє прокрутку, якщо контент перевищує доступну висоту */
+}
+
+app-nav,
+app-footer {
+  flex-shrink: 0; /* Забезпечує, що nav і footer мають свою власну висоту і не стискаються */
+}
