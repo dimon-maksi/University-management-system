@@ -1,3 +1,5 @@
+// Collection of basic types
+
 export type DayOfWeek = "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday";
 
 export type TimeSlot =

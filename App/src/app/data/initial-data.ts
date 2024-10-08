@@ -3,6 +3,8 @@ import { Course } from "../models/course";
 import { Lesson } from "../models/lesson";
 import { Professor } from "../models/professor";
 
+// The file where the mock data was created
+
 export const professors: Professor[] = [
     { id: 1, name: 'Dr. Smith', department: 'Computer Science' },
     { id: 2, name: 'Dr. Johnson', department: 'Mathematics' },

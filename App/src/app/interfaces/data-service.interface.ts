@@ -1,3 +1,5 @@
+// Base interface for services
+
 export interface DataService<T> {
     getAll(): T[];
     getById(id: number | string): T | undefined;

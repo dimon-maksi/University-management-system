@@ -15,18 +15,18 @@ describe('CourseService', () => {
   it('should get all courses', () => {
     const courses = courseService.getAll();
     expect(courses).toBeTruthy();
-    expect(courses.length).toBeGreaterThan(0);  // Перевіряємо, що є хоча б один курс
+    expect(courses.length).toBeGreaterThan(0);
   });
 
   it('should get course by id', () => {
     const course = courseService.getById(1);
     expect(course).toBeTruthy();
-    expect(course?.id).toBe(1);  // Перевіряємо, що курс має правильний id
+    expect(course?.id).toBe(1);
   });
 
   it('should return undefined for non-existing course id', () => {
     const course = courseService.getById(999);
-    expect(course).toBeUndefined();  // Якщо курсу немає, повертається undefined
+    expect(course).toBeUndefined();
   });
 
   it('should return the most popular course type', () => {
@@ -61,7 +61,7 @@ describe('CourseService', () => {
     courseService.update(1, updatedCourse);
 
     const course = courseService.getById(1);
-    expect(course?.name).toBe('Intro to Python');  // Перевіряємо, що ім'я курсу оновлене
+    expect(course?.name).toBe('Intro to Python');
   });
 
   it('should delete a course by id', () => {
@@ -70,7 +70,7 @@ describe('CourseService', () => {
     courseService.delete(1);
     const courses = courseService.getAll();
 
-    expect(courses.length).toBeLessThan(initialCount);  // Перевіряємо, що кількість курсів зменшилась
-    expect(courseService.getById(1)).toBeUndefined();  // Перевіряємо, що курс видалений
+    expect(courses.length).toBeLessThan(initialCount);
+    expect(courseService.getById(1)).toBeUndefined();
   });
 });

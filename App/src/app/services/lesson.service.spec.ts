@@ -17,13 +17,13 @@ describe('LessonService', () => {
   it('should get all lessons', () => {
     const lessons = lessonService.getAll();
     expect(lessons).toBeTruthy();
-    expect(lessons.length).toBeGreaterThan(0);  // Підставте актуальні значення для ваших тестів
+    expect(lessons.length).toBeGreaterThan(0);
   });
 
   it('should get lesson by id', () => {
     const lesson = lessonService.getById(1);
     expect(lesson).toBeTruthy();
-    expect(lesson?.id).toBe(1);  // Підставте актуальні значення для ваших тестів
+    expect(lesson?.id).toBe(1);
   });
 
   it('should add lesson if no conflicts', () => {
@@ -75,7 +75,7 @@ describe('LessonService', () => {
   it('should delete lesson by id', () => {
     const initialCount = lessonService.getAll().length;
 
-    lessonService.delete(1);  // Підставте актуальний id
+    lessonService.delete(1);
     const lessons = lessonService.getAll();
 
     expect(lessons.length).toBeLessThan(initialCount);
@@ -117,26 +117,25 @@ describe('LessonService', () => {
   });
 
   it('should return the correct utilization for a classroom with lessons', () => {
-    const classroomNumber = '101'; // Assuming classroom '101' has lessons
-    const result: number = lessonService.getClassroomUtilization(classroomNumber);
-
-    expect(result).toBeGreaterThan(0); // Should be greater than 0
-    expect(result).toBeLessThanOrEqual(1); // Utilization should be a percentage value (less than or equal to 1)
-  });
-
-  it('should return 0 utilization for an unused classroom', () => {
-    const classroomNumber = '999'; // Assuming classroom '999' does not exist or is unused
-    const result: number = lessonService.getClassroomUtilization(classroomNumber);
-
-    expect(result).toBe(0); // No utilization for an unused classroom
-  });
-
-  it('should return 0 utilization if no lessons exist', () => {
-    // Temporarily remove all lessons
-    lessonService['data'] = []; // Set schedule to empty
     const classroomNumber = '101';
     const result: number = lessonService.getClassroomUtilization(classroomNumber);
 
-    expect(result).toBe(0); // No lessons, so no utilization
+    expect(result).toBeGreaterThan(0);
+    expect(result).toBeLessThanOrEqual(1);
+  });
+
+  it('should return 0 utilization for an unused classroom', () => {
+    const classroomNumber = '999';
+    const result: number = lessonService.getClassroomUtilization(classroomNumber);
+
+    expect(result).toBe(0);
+  });
+
+  it('should return 0 utilization if no lessons exist', () => {
+    lessonService['data'] = [];
+    const classroomNumber = '101';
+    const result: number = lessonService.getClassroomUtilization(classroomNumber);
+
+    expect(result).toBe(0);
   });
 });
