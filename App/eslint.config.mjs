@@ -25,7 +25,7 @@ export default [
 		},
 		rules: {
 			'prettier/prettier': 'warn',
-			'no-console': ['error', { allow: ['error', 'warn'] }],
+			'no-console': 'error',
 			'prefer-const': 'warn',
 		},
 	},
