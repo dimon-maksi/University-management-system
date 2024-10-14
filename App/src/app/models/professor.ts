@@ -1,5 +1,5 @@
 export type Professor = {
-    id: number;
-    name: string;
-    department: string;
-  };
+	id: number;
+	name: string;
+	department: string;
+};
